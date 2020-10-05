@@ -18,7 +18,7 @@ export default defineConfig({
   },
   locale: {
     // default zh-CN
-    default: 'zh-CN',
+    default: 'en-US',
     antd: true,
     // default true, when it is true, will use `navigator.language` overwrite default
     baseNavigator: true,
@@ -68,6 +68,12 @@ export default defineConfig({
       icon: 'table',
       path: '/list',
       component: './ListTableList',
+    },
+    {
+      name: 'list.parkings-list',
+      icon: 'car',
+      path: '/pakings',
+      component: './Parkings',
     },
     {
       path: '/',
