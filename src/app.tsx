@@ -5,7 +5,7 @@ import { history, RequestConfig } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { ResponseError } from 'umi-request';
-import { queryCurrent } from './services/user';
+// import { queryCurrent } from './services/user';
 import defaultSettings from '../config/defaultSettings';
 
 export async function getInitialState(): Promise<{
@@ -14,13 +14,13 @@ export async function getInitialState(): Promise<{
   fetchUserInfo: () => Promise<API.CurrentUser | undefined>;
 }> {
   const fetchUserInfo = async () => {
-    try {
-      const currentUser = await queryCurrent();
-      return currentUser;
-    } catch (error) {
-      history.push('/user/login');
-    }
-    return undefined;
+    // try {
+    //   const currentUser = await queryCurrent();
+    //   return currentUser;
+    // } catch (error) {
+    //   history.push('/user/login');
+    // }
+    return {};
   };
   // 如果是登录页面，不执行
   if (history.location.pathname !== '/user/login') {
