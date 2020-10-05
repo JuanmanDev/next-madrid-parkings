@@ -1,10 +1,11 @@
 import { request } from 'umi';
 import { TableListParams, TableListItem } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule', {
-    params,
-  });
+export async function queryRule() {
+  const data = await request(
+    'https://idehodikxi.execute-api.eu-west-3.amazonaws.com/default/getMadridDatosFromEU',
+  );
+  return { data: data['@graph'], success: true };
 }
 
 export async function removeRule(params: { key: number[] }) {
