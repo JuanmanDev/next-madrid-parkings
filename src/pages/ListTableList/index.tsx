@@ -1,5 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, message, Drawer } from 'antd';
+import { Button, message, Drawer } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -53,7 +52,6 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
 };
 
 const TableList: React.FC<{}> = () => {
-  const [, handleModalVisible] = useState<boolean>(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
@@ -64,57 +62,58 @@ const TableList: React.FC<{}> = () => {
       title: 'ID',
       dataIndex: 'id',
       tip: 'Unique identifier for intern purposes',
-      render: (dom, entity) => {
-        return <a onClick={() => setRow(entity)}>{dom}</a>;
-      },
+      render: (id, record) => <a href={record['@id']}> id </a>,
+      // render: (dom, entity) => {
+      //   return <a onClick={() => setRow(entity)}>{dom}</a>;
+      // },
     },
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'title',
       valueType: 'textarea',
     },
     {
       title: 'Address',
-      dataIndex: 'callNo',
+      dataIndex: 'fullAddress',
       sorter: true,
       hideInForm: true,
-      renderText: (val: string) => `${val} __`,
+      render: (_, record: any) => (
+        <div>
+          <span> {record.address['street-address']} </span>
+          <br />
+          <span> {record.address.districtName} </span>
+          <span> {record.address.areaName} </span>
+          <br />
+          <span> {record.address['postal-code']} </span>
+          <span> {record.address.locality} </span>
+        </div>
+      ),
     },
     {
       title: 'Location',
       dataIndex: 'location',
-      hideInForm: true,
-      // valueEnum: {
-      //   0: { text: '关闭', status: 'Default' },
-      //   1: { text: '运行中', status: 'Processing' },
-      //   2: { text: '已上线', status: 'Success' },
-      //   3: { text: '异常', status: 'Error' },
-      // },
+      renderText: (location: any) => ` ${location.latitude}, ${location.longitude}`,
     },
     {
       title: 'Distance',
       dataIndex: 'distance',
       sorter: true,
-      valueType: 'money',
-      renderText: (val: string) => `${val} km`,
+      // valueType: 'money',
+      renderText: (val: string) => `${val || '-'} km`,
     },
     {
       title: 'Maps',
       dataIndex: 'location',
       sorter: true,
       valueType: 'option',
-      render: (_, record) => (
+      render: (location: any) => (
         <>
           <a
-            onClick={() => {
-              handleUpdateModalVisible(true);
-              setStepFormValues(record);
-            }}
+            href={`http://www.google.com/maps/place/${location.latitude},${location.longitude}`}
+            target="blank"
           >
-            配置
+            <Button type="primary">See on Google Maps</Button>
           </a>
-          <Divider type="vertical" />
-          <a href="">订阅警报</a>
         </>
       ),
     },
@@ -126,14 +125,7 @@ const TableList: React.FC<{}> = () => {
         headerTitle="Madrid Parkings"
         actionRef={actionRef}
         rowKey="key"
-        search={{
-          labelWidth: 120,
-        }}
-        toolBarRender={() => [
-          <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined /> 新建
-          </Button>,
-        ]}
+        search={false}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}
         rowSelection={{
