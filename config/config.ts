@@ -76,6 +76,12 @@ export default defineConfig({
       component: './Parkings',
     },
     {
+      name: 'list.weather',
+      icon: 'cloud',
+      path: '/weather',
+      component: './Weather',
+    },
+    {
       path: '/',
       redirect: '/welcome',
     },
