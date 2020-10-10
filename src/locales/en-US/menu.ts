@@ -23,6 +23,8 @@ export default {
   'menu.form.advanced-form': 'Advanced Form',
   'menu.list': 'List',
   'menu.list.table-list': 'Search Table',
+  'menu.list.parkings-list': 'Parkings',
+  'menu.list.weather': 'Weather',
   'menu.list.basic-list': 'Basic List',
   'menu.list.card-list': 'Card List',
   'menu.list.search-list': 'Search List',

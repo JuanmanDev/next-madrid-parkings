@@ -4,7 +4,7 @@ import { DefaultFooter } from '@ant-design/pro-layout';
 
 export default () => (
   <DefaultFooter
-    copyright="2019 蚂蚁金服体验技术部出品"
+    copyright="2020 For interview purposes"
     links={[
       {
         key: 'Ant Design Pro',
@@ -19,9 +19,9 @@ export default () => (
         blankTarget: true,
       },
       {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
+        key: 'Juan Manuel Béc',
+        title: 'Juan Manuel Béc',
+        href: 'https://github.com/JuanmanDev',
         blankTarget: true,
       },
     ]}
