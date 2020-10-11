@@ -61,8 +61,10 @@ const TableList: React.FC<{}> = () => {
     {
       title: 'ID',
       dataIndex: 'id',
+      sorter: true,
       tip: 'Unique identifier for intern purposes',
       render: (id, record) => <a href={record['@id']}> id </a>,
+      // valueType: 'number',
       // render: (dom, entity) => {
       //   return <a onClick={() => setRow(entity)}>{dom}</a>;
       // },
@@ -70,7 +72,8 @@ const TableList: React.FC<{}> = () => {
     {
       title: 'Name',
       dataIndex: 'title',
-      valueType: 'textarea',
+      sorter: true,
+      // valueType: 'textarea',
     },
     {
       title: 'Address',
@@ -92,6 +95,7 @@ const TableList: React.FC<{}> = () => {
     {
       title: 'Location',
       dataIndex: 'location',
+      sorter: true,
       renderText: (location: any) => ` ${location.latitude}, ${location.longitude}`,
     },
     {
@@ -99,12 +103,11 @@ const TableList: React.FC<{}> = () => {
       dataIndex: 'distance',
       sorter: true,
       // valueType: 'money',
-      renderText: (val: string) => `${val || '-'} km`,
+      renderText: (val: number) => `${val ? val.toFixed(2) : '-'} km`,
     },
     {
       title: 'Maps',
       dataIndex: 'location',
-      sorter: true,
       render: (location: any) => (
         <>
           <a
@@ -118,6 +121,18 @@ const TableList: React.FC<{}> = () => {
     },
   ];
 
+  let userCoordinates: { latitude: number; longitude: number };
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      userCoordinates = position.coords as {
+        latitude: number;
+        longitude: number;
+      };
+      actionRef.current?.reload();
+    });
+  }
+
   return (
     <PageContainer>
       <ProTable<TableListItem>
@@ -125,7 +140,9 @@ const TableList: React.FC<{}> = () => {
         actionRef={actionRef}
         rowKey="key"
         search={false}
-        request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
+        request={(params, sorter, filter) =>
+          queryRule({ ...params, sorter, filter, userCoordinates })
+        }
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
