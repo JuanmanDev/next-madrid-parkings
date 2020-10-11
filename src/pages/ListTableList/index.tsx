@@ -105,7 +105,6 @@ const TableList: React.FC<{}> = () => {
       title: 'Maps',
       dataIndex: 'location',
       sorter: true,
-      valueType: 'option',
       render: (location: any) => (
         <>
           <a
