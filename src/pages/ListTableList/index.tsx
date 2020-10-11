@@ -63,7 +63,7 @@ const TableList: React.FC<{}> = () => {
       dataIndex: 'id',
       sorter: true,
       tip: 'Unique identifier for intern purposes',
-      render: (id, record) => <a href={record['@id']}> id </a>,
+      render: (id, record) => <a href={record['@id']}> {id} </a>,
       // valueType: 'number',
       // render: (dom, entity) => {
       //   return <a onClick={() => setRow(entity)}>{dom}</a>;

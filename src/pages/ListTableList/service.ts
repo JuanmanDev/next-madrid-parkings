@@ -4,7 +4,7 @@ import { TableListParams, TableListItem } from './data.d';
 let cacheMadridData: any;
 let distanceCalculated: boolean = false;
 
-export async function queryRule(info: any) {
+export async function queryRule(info: any = {}) {
   const { userCoordinates, sorter } = info;
   if (!cacheMadridData) {
     const data = await request(
