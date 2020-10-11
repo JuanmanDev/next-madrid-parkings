@@ -53,9 +53,11 @@ export async function queryRule(info: any = {}) {
     if (keySorter) {
       let sortFunction;
       if (sorter[keySorter] === 'ascend') {
-        sortFunction = (a: any, b: any) => a[keySorter].localeCompare(b[keySorter]);
+        sortFunction = (a: any, b: any) =>
+          a[keySorter].localeCompare(b[keySorter], undefined, { numeric: true });
       } else {
-        sortFunction = (a: any, b: any) => b[keySorter].localeCompare(a[keySorter]);
+        sortFunction = (a: any, b: any) =>
+          b[keySorter].localeCompare(a[keySorter], undefined, { numeric: true });
       }
       cacheMadridData.sort(sortFunction);
     }
