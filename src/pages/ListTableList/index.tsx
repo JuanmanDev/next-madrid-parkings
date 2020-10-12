@@ -64,10 +64,6 @@ const TableList: React.FC<{}> = () => {
       sorter: true,
       tip: 'Unique identifier for intern purposes',
       render: (id, record) => <a href={record['@id']}> {id} </a>,
-      // valueType: 'number',
-      // render: (dom, entity) => {
-      //   return <a onClick={() => setRow(entity)}>{dom}</a>;
-      // },
     },
     {
       title: 'Name',
@@ -95,14 +91,12 @@ const TableList: React.FC<{}> = () => {
     {
       title: 'Location',
       dataIndex: 'location',
-      sorter: true,
       renderText: (location: any) => ` ${location.latitude}, ${location.longitude}`,
     },
     {
       title: 'Distance',
       dataIndex: 'distance',
       sorter: true,
-      // valueType: 'money',
       renderText: (val: number) => `${val ? val.toFixed(2) : '-'} km`,
     },
     {
