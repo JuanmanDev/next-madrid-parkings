@@ -132,7 +132,7 @@ const TableList: React.FC<{}> = () => {
       <ProTable<TableListItem>
         headerTitle="Madrid Parkings"
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={false}
         request={(params, sorter, filter) =>
           queryRule({ ...params, sorter, filter, userCoordinates })

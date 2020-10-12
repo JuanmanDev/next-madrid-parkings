@@ -53,8 +53,8 @@ export async function queryRule(info: any = {}) {
     if (keySorter) {
       const asc = sorter[keySorter] === 'ascend';
       const sortFunction = (one: any, two: any) => {
-        const a = two[keySorter];
-        const b = one[keySorter];
+        const a = one[keySorter];
+        const b = two[keySorter];
 
         if (a === null) return 1;
         if (b === null) return -1;
@@ -71,8 +71,7 @@ export async function queryRule(info: any = {}) {
       cacheMadridData.sort(sortFunction);
     }
   }
-
-  return { data: cacheMadridData, success: true };
+  return { data: [...cacheMadridData], success: true, sorter };
 }
 
 function calculateDistance(userCoordinates: { latitude: number; longitude: number }) {
